@@ -22,8 +22,9 @@ import projectComponent from './projectComponent';
 
 let todo1 = new Todo("My first todo", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius maiores facilis minus et explicabo maxime accusantium fugit, dolorem quae. Eveniet consequatur laborum ut tempora assumenda rem! Quaerat qui optio laborum!", "2023-11-03", 2, false);
 let todo2 = new Todo("My second todo", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro esse ea mollitia adipisci similique nisi. Odio nostrum error minus vel adipisci, explicabo delectus culpa quia necessitatibus repellendus harum deserunt earum.", "2023-10-25", 1 , true);
-let todo3 = new Todo("My third todo", "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat amet debitis minima illum in veniam commodi natus. Obcaecati, nobis necessitatibus possimus recusandae odit rerum, reprehenderit voluptatem magnam quaerat autem nemo.", "2020-02-18", 0 , false);
-let todo4 = new Todo("My fourth todo", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto distinctio, laboriosam dignissimos, iure maxime earum deleniti, nam exercitationem corporis accusamus vel explicabo in. Ratione modi esse veritatis repellat commodi suscipit.", "2005-02-18", 2 , true);
+let todo3 = new Todo("My third todo", "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat amet debitis minima illum in veniam commodi natus. Obcaecati, nobis necessitatibus possimus recusandae odit rerum, reprehenderit voluptatem magnam quaerat autem nemo Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, natus ad. Delectus officia possimus facere ipsam recusandae enim obcaecati natus fugiat reprehenderit dolorum quod ipsa numquam, ipsum soluta quas doloribus", "2020-02-18", 0 , false);
+let todo4 = new Todo("My fourth todo", "wiwu", "2005-02-18", 2 , true);
+
 
 
 let Project1 = new Project("A different name");
@@ -55,7 +56,7 @@ const projectComponentElement = projectComponent(Project1);
 main.append(projectComponentElement);
 //main.append(todo1Component, todo2Component, todo3Component);
 
-dashboard.append(navigation, header, main, footer);
+dashboard.append(main, navigation, header, footer);
 
 
 

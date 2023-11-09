@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;800&display=swap');
 
+*{
+  box-sizing: border-box;
+}
 body{
   margin: 0;
   font-family: 'Raleway', sans-serif;
@@ -27,15 +30,22 @@ body{
 }
 
 .botSection{
-  width: 100%;
-  /*Estas propiedades seran toggeables para mostrar o esconder los elementos*/
- /*  height: 1rem;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.descInput{
+  resize: none;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis; */
+  min-height: 10px; 
+  max-height: 8000px; 
 }
 
 .hideBottomSection{
+  max-width: 1600px;
+  display: block;
   transition: 250ms;
   height: 1.2em;
   overflow: hidden;
@@ -82,6 +92,7 @@ body{
 nav{
   background-color: #1081B7;
   grid-area: nav;
+  box-shadow: 4px 0px 4px 0px rgba(0,0,0,0.25);
 }
 
 header{
@@ -107,6 +118,7 @@ main{
 footer{
   background-color: #004566;
   grid-area: footer;
+  box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 #topContainer{

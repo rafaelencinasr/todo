@@ -1,5 +1,7 @@
 //import editIcon;
 //import deleteIcon;
+import editTodoComponentTop from "./editTodoComponentTop";
+import editTodoComponentBot from "./editTodoComponentBot";
 function todoComponent(todoObj, index){
 
     let component = document.createElement("div");
@@ -38,6 +40,12 @@ function todoComponent(todoObj, index){
         botSection.classList.toggle("hideBottomSection");
     });
     deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click",()=>{
+        component.innerHTML = "";
+        component.append(editTodoComponentTop(todoObj));
+        component.append(editTodoComponentBot(todoObj));
+        //component.append("delete button clicked");
+    });
 
     rightSection.append(todoDate, editBtn, deleteBtn)
 
@@ -45,7 +53,8 @@ function todoComponent(todoObj, index){
     botSection.classList.add("botSection", "hideBottomSection");
 
     topSection.append(leftSection, rightSection);
-
+    /* botSection.rows = "4";
+    botSection.cols = "50"; */
     botSection.textContent = todoObj.description;
 
     component.append(topSection, botSection);
