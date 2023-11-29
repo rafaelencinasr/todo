@@ -31,12 +31,20 @@ function editTodoComponentBot(todoObj){
     priorityTitle.classList.add("priorityTitle");
     priorityTitle.textContent = "Priority";
 
-
+    lowPriorityBtn.classList.add("lowPriorityBtn");
     lowPriorityBtn.textContent = "Low";
+
+    midPriorityBtn.classList.add("midPriorityBtn");
     midPriorityBtn.textContent = "Medium";
+
+    highPriorityBtn.classList.add("highPriorityBtn");
     highPriorityBtn.textContent = "High";
 
+    saveBtn.classList.add("saveBtn");
     saveBtn.textContent = "Save";
+
+
+    cancelBtn.classList.add("cancelBtn");
     cancelBtn.textContent = "Cancel";
 
     leftBtns.classList.add("leftBtns");

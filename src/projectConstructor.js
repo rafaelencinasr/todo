@@ -7,6 +7,9 @@ function Project(name){
     };
     this.newTodo = function(todo){
         this.todosList.unshift(todo);
+    };
+    this.editTodo = function(todo, index){
+        this.todosList.splice(index, 1, todo);
     }
 };
 

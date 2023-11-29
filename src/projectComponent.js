@@ -1,3 +1,4 @@
+// poner como parametro el index del proyecto
 import todoComponent from "./todoComponent";
 
 function projectComponent(project){

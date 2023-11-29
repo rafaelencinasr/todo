@@ -1,10 +1,14 @@
 //import editIcon;
 //import deleteIcon;
+
 import editTodoComponentTop from "./editTodoComponentTop";
 import editTodoComponentBot from "./editTodoComponentBot";
+import editTodoComponent from "./editTodoComponent";
+
 function todoComponent(todoObj, index){
 
     let component = document.createElement("div");
+    let innerContainer = document.createElement("div");
     let leftSection = document.createElement("div");
     let rightSection = document.createElement("div");
     let topSection = document.createElement("div");
@@ -19,6 +23,10 @@ function todoComponent(todoObj, index){
     component.classList.add("todoComponent");
     component.classList.add(priorityClasses[todoObj.priority]);
     component.dataset.index = index;
+    component.id = `todoComponent${index}`;
+
+    innerContainer.classList.add("innerContainer");
+    innerContainer.dataset.index = index;
 
     leftSection.classList.add("leftSection");
 
@@ -35,17 +43,22 @@ function todoComponent(todoObj, index){
     todoDate.value = todoObj.dueDate;   //AAAA-MM-DD
 
     editBtn.textContent = "Edit";
-
     editBtn.addEventListener("click",()=>{
+        //console.log("review mode");
+        let componentSelector = document.querySelector(`#todoComponent${index}`);
+        //console.log(componentSelector);
+        componentSelector.innerHTML = "";
+        componentSelector.append(editTodoComponent(todoObj, index));
+    });
+
+    todoTitle.addEventListener("click",()=>{
         botSection.classList.toggle("hideBottomSection");
     });
+    botSection.addEventListener("click",()=>{
+        botSection.classList.toggle("hideBottomSection");
+    })
+
     deleteBtn.textContent = "Delete";
-    deleteBtn.addEventListener("click",()=>{
-        component.innerHTML = "";
-        component.append(editTodoComponentTop(todoObj));
-        component.append(editTodoComponentBot(todoObj));
-        //component.append("delete button clicked");
-    });
 
     rightSection.append(todoDate, editBtn, deleteBtn)
 
@@ -53,11 +66,12 @@ function todoComponent(todoObj, index){
     botSection.classList.add("botSection", "hideBottomSection");
 
     topSection.append(leftSection, rightSection);
-    /* botSection.rows = "4";
-    botSection.cols = "50"; */
     botSection.textContent = todoObj.description;
 
-    component.append(topSection, botSection);
+    innerContainer.append(topSection, botSection);
+
+    //component.append(topSection, botSection);
+    component.append(innerContainer);
     return component;
 }
 
