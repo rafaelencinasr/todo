@@ -5,7 +5,7 @@ import editTodoComponentTop from "./editTodoComponentTop";
 import editTodoComponentBot from "./editTodoComponentBot";
 import editTodoComponent from "./editTodoComponent";
 
-function todoComponent(todoObj, index){
+function todoComponent(todoObj, index, projectIndex){
 
     let component = document.createElement("div");
     let innerContainer = document.createElement("div");
@@ -48,7 +48,7 @@ function todoComponent(todoObj, index){
         let componentSelector = document.querySelector(`#todoComponent${index}`);
         //console.log(componentSelector);
         componentSelector.innerHTML = "";
-        componentSelector.append(editTodoComponent(todoObj, index));
+        componentSelector.append(editTodoComponent(todoObj, index, projectIndex, false));
     });
 
     todoTitle.addEventListener("click",()=>{

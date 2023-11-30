@@ -1,14 +1,20 @@
 import Todo from "./objConstructor";
+import Project from "./projectConstructor";
 import todoComponent from "./todoComponent";
 
-function editTodoComponent(todoObj, index){
+function editTodoComponent(todoObj, index, projectIndex, setupNewTodo){
 
+    let newTodoFlag = setupNewTodo;
     let component = document.querySelector(`#todoComponent${index}`);
     let priorityClasses = ["lowPriority", "midPriority", "highPriority"];
 
     let innerContainer = document.createElement("div");
     innerContainer.classList.add("innerContainer");
     innerContainer.dataset.index = index;
+
+    let allProjectsArray;
+    let projectElement;
+    let projectObj;
 
     //Top Container
     let topSection = document.createElement("div");
@@ -42,6 +48,14 @@ function editTodoComponent(todoObj, index){
         console.log("This is edit mode");
     });
     deleteBtn.textContent = "Delete";
+
+    deleteBtn.addEventListener("click", ()=>{
+        updateProjectList();
+        console.log(projectObj.todosList);
+        projectObj.deleteTodo(index);
+        saveProjectToLocalStorage();
+        component.remove();
+    })
 
     rightSection.append(todoDate, editBtn, deleteBtn)
 
@@ -119,19 +133,48 @@ function editTodoComponent(todoObj, index){
         component.classList.add(priorityClasses[priority]);
     }
 
+    function updateProjectList(){
+        allProjectsArray = JSON.parse(localStorage.getItem("allProjects"));
+        //console.log(allProjectsArray);
+        //console.log(allProjectsArray[projectIndex]);
+
+        //Metodos se estan perdiendo al obtener los objetos desde el localstorage, ver para
+        //reasignar prototipo
+        projectElement = allProjectsArray[projectIndex];
+        projectObj = new Project(projectElement.name);
+        projectObj.setTodosList(projectElement.todosList);
+    };
+
+    function saveProjectToLocalStorage(){
+        allProjectsArray[projectIndex] = projectObj;
+        localStorage.setItem("allProjects", JSON.stringify(allProjectsArray));
+    }
+
     saveBtn.classList.add("saveBtn");
     saveBtn.textContent = "Save";
     saveBtn.addEventListener("click", ()=>{
         //console.log("Save button clicked! at index: " + index);
         let newTodo = new Todo(todoTitle.value, descInput.value, todoDate.value, todoPriority, checkbox.checked);
-        console.log(newTodo);
+        //console.log(newTodo);
         component.innerHTML = "";
-        component.append(todoComponent(newTodo, index).firstChild);
+        component.append(todoComponent(newTodo, index, projectIndex).firstChild);
         /*component.classList.remove(...component.classList);
         component.classList.add("todoComponent");
         component.classList.add(priorityClasses[todoObj.priority]);
         */
         changePriorityClass(todoPriority);
+        updateProjectList();
+
+        if(newTodoFlag){
+            //Se esta creando un nuevo Todo
+            projectObj.newTodo(newTodo);
+            newTodoFlag = false;
+        } else {
+            //Se esta editando un todo existente
+            projectObj.editTodo(newTodo, index);
+        }
+        console.log(projectObj.todosList);
+        saveProjectToLocalStorage();
     })
 
     cancelBtn.classList.add("cancelBtn");
@@ -139,7 +182,7 @@ function editTodoComponent(todoObj, index){
     cancelBtn.addEventListener("click", ()=>{
         //console.log("Cancel button clicked! at index: " + index);
         component.innerHTML = "";
-        component.append(todoComponent(todoObj, index).firstChild);
+        component.append(todoComponent(todoObj, index, projectIndex).firstChild);
         todoPriority = todoObj.priority;
         changePriorityClass(todoPriority);
     })

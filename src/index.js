@@ -41,8 +41,9 @@ let Project1 = new Project("Project 1 name");
 //console.log("Test push todo1, todo2, todo3");
 Project1.newTodo(todo1);
 Project1.newTodo(todo2);
-Project1.newTodo(todo3);
+Project1.editTodo(todo3, 1);
 Project1.newTodo(todo4);
+console.log(Project1);
 //console.log(Project1.todosList);
 
 /*
@@ -110,16 +111,16 @@ createProjectBtn.addEventListener("click", ()=>{
     //newProjectContainer.remove();
     navProjectList.innerHTML = '';
     renderProjectList();
-  })
+  });
 
   newProjectCancelBtn.addEventListener("click", ()=>{
     console.log("Cancel project btn clicked!");
     createProjectBtn.disabled = false;
     let newProjectContainer = document.querySelector("#newProjectContainer");
     newProjectContainer.remove();
-  })
+  });
 
-})
+});
 
 navProjectsContainer.id = "navProjectsContainer";
 navProjectsContainer.append(projectsNav, createProjectBtn, navProjectList);
@@ -129,10 +130,12 @@ let projectsArray = [];
 function renderProjectList(){
   if(localStorage.getItem("allProjects") != null){
     console.log("There are projects stored in localStorage");
-    projectsArray = [...JSON.parse(localStorage.getItem("allProjects"))]
+    projectsArray = [...JSON.parse(localStorage.getItem("allProjects"))];
     projectsArray.forEach((element, index) =>{
       navProjectList.append(navigationProjectElement(element.name, index));
     })
+
+    addRenderingToProjects();
   } else{
     console.log("No projects found");
   }
@@ -140,17 +143,46 @@ function renderProjectList(){
 
 renderProjectList();
 
+function renderProjectTodos(project, projectIndex){
+  main.innerHTML='';
+  main.append(projectComponent(project, projectIndex));
+}
+
+
+function addRenderingToProjects(){
+  //console.log("elementIndex called");
+  setTimeout(()=>{
+    let projectsNodelist = document.querySelectorAll(".projects");
+    //console.log(projectsNodelist);
+    projectsNodelist.forEach(element =>{
+      element.addEventListener("click", ()=>{
+        let elementIndex = element.dataset.projectIndex;
+        console.log("Clicked on a project name with index: " + elementIndex);
+        projectsArray = [...JSON.parse(localStorage.getItem("allProjects"))];
+        renderProjectTodos(projectsArray[elementIndex], elementIndex);
+      })
+    })
+},2);
+  //let projectsNodelist = document.querySelectorAll("#navigationContainer");
+  //console.log(projectsNodelist);
+
+
+  
+}
+
+
+
 
 
 navigation.append(navTopContainer, navProjectsContainer);
 /*
-projectsArray.push(Project2);
+projectsArray.push(Project1);
 console.log(projectsArray);
 
 localStorage.setItem("allProjects", JSON.stringify(projectsArray));
 */
-const projectComponentElement = projectComponent(Project1);
-main.append(projectComponentElement);
+//const projectComponentElement = projectComponent(Project1);
+//main.append(projectComponentElement);
 //main.append(todo1Component, todo2Component, todo3Component);
 
 dashboard.append(main, navigation, header, footer);
